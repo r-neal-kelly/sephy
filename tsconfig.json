@@ -7,4 +7,10 @@
         "outDir": "./bin",
         "esModuleInterop": true,
     },
+
+    "exclude": [
+        "bin",
+        "node_modules",
+        "out",
+    ],
 }

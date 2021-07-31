@@ -1,9 +1,9 @@
-import path from 'path';
+import path from "path";
 
 import {
     app,
     BrowserWindow,
-} from 'electron';
+} from "electron";
 
 class Window_t {
     folder: string;
@@ -13,29 +13,29 @@ class Window_t {
         this.folder = folder;
 
         this.window = new BrowserWindow({
-            fullscreen: true,
             webPreferences: {
-                preload: path.join(__dirname, this.folder + '/preload.js'),
+                preload: path.join(__dirname, "windows/" + this.folder + "/preload.js"),
             },
         });
-        this.window.loadFile('./src/windows/' + this.folder + '/index.html');
+        this.window.loadFile("./src/windows/" + this.folder + "/index.html");
         this.window.webContents.openDevTools();
     }
 };
 
-app.on('ready', async function (): Promise<void> {
+app.on("ready", async function (): Promise<void> {
+    new Window_t("gallery");
     new Window_t("gallery");
 
-    // windows cannot be created before 'ready' event
-    app.on('activate', async function (): Promise<void> {
+    // windows cannot be created before "ready" event
+    app.on("activate", async function (): Promise<void> {
         if (BrowserWindow.getAllWindows().length === 0) {
             new Window_t("gallery");
         }
     });
 });
 
-app.on('window-all-closed', async function (): Promise<void> {
-    if (process.platform !== 'darwin'){
+app.on("window-all-closed", async function (): Promise<void> {
+    if (process.platform !== "darwin"){
         app.quit();
     }
 });
