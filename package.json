@@ -1,8 +1,8 @@
 {
   "name": "sephy",
   "version": "1.0.0",
-  "description": "a picture viewing app",
-  "main": "js/main.js",
+  "description": "A picture viewing app named after my dearly departed cat.",
+  "main": "./bin/main.js",
   "scripts": {
     "build": "./node_modules/.bin/tsc",
     "start": "electron-forge start",
