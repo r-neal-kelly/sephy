@@ -4,7 +4,6 @@
   "description": "A picture viewing app named after my dearly departed cat.",
   "main": "./bin/main.js",
   "scripts": {
-    "remove_bin": "",
     "build": "node tools/remove_bin && tsc",
     "start": "npm run build && electron-forge start",
     "package": "npm run build && electron-forge package",

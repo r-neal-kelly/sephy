@@ -1,3 +1,3 @@
 window.addEventListener("DOMContentLoaded", async function (): Promise<void> {
-    console.log(document);
+    console.log(process.platform);
 });

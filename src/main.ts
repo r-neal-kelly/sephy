@@ -10,25 +10,36 @@ class Window_t {
     window: BrowserWindow;
 
     constructor (folder: string) {
+        const self: Window_t = this;
+
         this.folder = folder;
 
         this.window = new BrowserWindow({
+            center: true,
+            show: false,
+
             webPreferences: {
-                preload: path.join(__dirname, "windows/" + this.folder + "/preload.js"),
+                contextIsolation: false,
+                nodeIntegration: true,
             },
         });
+
         this.window.loadFile("./src/windows/" + this.folder + "/index.html");
         this.window.webContents.openDevTools();
+
+        this.window.once("ready-to-show", async function (): Promise<void> {
+            self.window.show();
+        });
     }
 };
 
 app.on("ready", async function (): Promise<void> {
-    new Window_t("gallery");
-    
+    let gallery: Window_t = new Window_t("gallery");
+
     // windows cannot be created before "ready" event
     app.on("activate", async function (): Promise<void> {
         if (BrowserWindow.getAllWindows().length === 0) {
-            new Window_t("gallery");
+            gallery = new Window_t("gallery");
         }
     });
 });
