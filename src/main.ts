@@ -24,8 +24,7 @@ class Window_t {
 
 app.on("ready", async function (): Promise<void> {
     new Window_t("gallery");
-    new Window_t("gallery");
-
+    
     // windows cannot be created before "ready" event
     app.on("activate", async function (): Promise<void> {
         if (BrowserWindow.getAllWindows().length === 0) {
