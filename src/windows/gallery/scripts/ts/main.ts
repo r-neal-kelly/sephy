@@ -8,7 +8,7 @@ window.addEventListener("DOMContentLoaded", async function (): Promise<void> {
     {
         const title: HTMLTitleElement = document.createElement("title");
         document.head.appendChild(title);
-        title.innerText = "Sephy!";
+        title.innerText = "Sephy";
     }
     {
         document.body.classList.add("Viewport");
@@ -23,7 +23,7 @@ window.addEventListener("DOMContentLoaded", async function (): Promise<void> {
                 album.addEventListener("click", async function (): Promise<void> {
                     viewport_albums.style["display"] = "none";
                     viewport_picture.style["display"] = "";
-                    picture.setAttribute("src", "../../../pics/sephy.jpg");
+                    picture.setAttribute("src", "./pics/sephy.jpg");
                 });
                 {
                     const album_text: HTMLDivElement = document.createElement("div");
@@ -40,7 +40,7 @@ window.addEventListener("DOMContentLoaded", async function (): Promise<void> {
                         album_peek_thumb.classList.add("Thumb");
                         album_peek_thumb.classList.add("Thumb_Tall");
                         album_peek_thumb.style["border"] = "0";
-                        album_peek_thumb.style["background-image"] = "url('../../../pics/sephy.jpg')";
+                        album_peek_thumb.style["background-image"] = "url('./pics/sephy.jpg')";
                     }
                 }
             }

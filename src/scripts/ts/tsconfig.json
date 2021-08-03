@@ -3,14 +3,14 @@
         "target": "esnext",
         "module": "commonjs",
         "moduleResolution": "node",
-        "rootDir": "./src",
-        "outDir": "./bin",
+        "rootDir": "./",
+        "outDir": "../js",
         "esModuleInterop": true,
     },
 
-    "exclude": [
-        "bin",
-        "node_modules",
-        "out",
+    "references": [
+        {
+            "path": "../../windows/gallery/scripts/ts",
+        }
     ],
 }

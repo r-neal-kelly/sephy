@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "target": "esnext",
+        "module": "esnext",
+        "rootDir": "./",
+        "outDir": "../js",
+        "esModuleInterop": true,
+        "composite": true,
+    },
+}

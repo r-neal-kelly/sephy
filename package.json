@@ -2,9 +2,9 @@
   "name": "sephy",
   "version": "1.0.0",
   "description": "A picture viewing app named after my dearly departed cat.",
-  "main": "./bin/main.js",
+  "main": "./src/scripts/js/main.js",
   "scripts": {
-    "build": "node tools/remove_bin && tsc",
+    "build": "tsc -b ./src/scripts/ts",
     "start": "npm run build && electron-forge start",
     "package": "npm run build && electron-forge package",
     "make": "npm run build && electron-forge make"

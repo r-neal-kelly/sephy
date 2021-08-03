@@ -1,3 +1,4 @@
-/bin
 /node_modules
 /out
+/src/scripts/js
+/src/windows/gallery/scripts/js
