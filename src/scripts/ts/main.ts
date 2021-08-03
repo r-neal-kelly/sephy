@@ -19,8 +19,8 @@ class Window_t {
             show: false,
 
             webPreferences: {
-                contextIsolation: false,
-                nodeIntegration: true,
+                contextIsolation: true,
+                nodeIntegration: false,
             },
         });
 
@@ -39,10 +39,12 @@ class Gallery_t extends Window_t {
 
         let pics = Object.create(null);
 
+        pics.test = 2; // temp
+
         if (!fs.existsSync(this.folder + "/scripts/json")) {
             fs.mkdirSync(this.folder + "/scripts/json", { recursive: true });
         }
-        fs.writeFileSync(this.folder + "/scripts/json/pics.json", JSON.stringify(pics, null, 4), "utf8");
+        fs.writeFileSync(this.folder + "/scripts/json/pics.json", JSON.stringify(pics, null, null), "utf8");
     }
 };
 

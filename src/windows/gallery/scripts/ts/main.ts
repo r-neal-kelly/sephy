@@ -1,5 +1,14 @@
 window.addEventListener("DOMContentLoaded", async function (): Promise<void> {
-    console.log(process.platform);
+    {
+        let request: XMLHttpRequest = new XMLHttpRequest();
+        request.open("GET", "./scripts/json/pics.json");
+        request.responseType = "json";
+        request.send();
+        request.onload = async function (): Promise<void> {
+            let pics: any = request.response;
+            console.log(pics.test);
+        };
+    }
 
     let viewport_albums: HTMLDivElement;
     let viewport_picture: HTMLDivElement;
