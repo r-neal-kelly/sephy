@@ -1,4 +1,4 @@
-import path from "path";
+import fs from "fs";
 
 import {
     app,
@@ -12,7 +12,7 @@ class Window_t {
     constructor (folder: string) {
         const self: Window_t = this;
 
-        this.folder = folder;
+        this.folder = "./src/windows/" + folder;
 
         this.window = new BrowserWindow({
             center: true,
@@ -24,7 +24,7 @@ class Window_t {
             },
         });
 
-        this.window.loadFile("./src/windows/" + this.folder + "/index.html");
+        this.window.loadFile(this.folder + "/index.html");
         this.window.webContents.openDevTools();
 
         this.window.once("ready-to-show", async function (): Promise<void> {
@@ -33,13 +33,26 @@ class Window_t {
     }
 };
 
+class Gallery_t extends Window_t {
+    constructor () {
+        super("gallery");
+
+        let pics = Object.create(null);
+
+        if (!fs.existsSync(this.folder + "/scripts/json")) {
+            fs.mkdirSync(this.folder + "/scripts/json", { recursive: true });
+        }
+        fs.writeFileSync(this.folder + "/scripts/json/pics.json", JSON.stringify(pics, null, 4), "utf8");
+    }
+};
+
 app.on("ready", async function (): Promise<void> {
-    let gallery: Window_t = new Window_t("gallery");
+    let gallery: Gallery_t = new Gallery_t();
 
     // windows cannot be created before "ready" event
     app.on("activate", async function (): Promise<void> {
         if (BrowserWindow.getAllWindows().length === 0) {
-            gallery = new Window_t("gallery");
+            gallery = new Gallery_t();
         }
     });
 });
