@@ -1,14 +1,25 @@
+async function get_pics(): Promise<any> {
+    const request: XMLHttpRequest = new XMLHttpRequest();
+    request.responseType = "json";
+    request.open("GET", "./scripts/json/pics.json");
+    request.send();
+
+    return new Promise(async function (resolve, reject): Promise<void> {
+        request.addEventListener("load", async function (): Promise<void> {
+            resolve(request.response);
+        });
+        request.addEventListener("abort", async function (): Promise<void> {
+            resolve({});
+        });
+        request.addEventListener("error", async function (): Promise<void> {
+            resolve({});
+        });
+    });
+};
+
 window.addEventListener("DOMContentLoaded", async function (): Promise<void> {
-    {
-        let request: XMLHttpRequest = new XMLHttpRequest();
-        request.open("GET", "./scripts/json/pics.json");
-        request.responseType = "json";
-        request.send();
-        request.onload = async function (): Promise<void> {
-            let pics: any = request.response;
-            console.log(pics.test);
-        };
-    }
+    const pics = await get_pics();
+    console.log(pics.test);
 
     let viewport_albums: HTMLDivElement;
     let viewport_picture: HTMLDivElement;
