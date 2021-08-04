@@ -19,7 +19,7 @@ async function get_pics(): Promise<any> {
 
 window.addEventListener("DOMContentLoaded", async function (): Promise<void> {
     const pics = await get_pics();
-    console.log(pics.test);
+    console.log(pics);
 
     let viewport_albums: HTMLDivElement;
     let viewport_picture: HTMLDivElement;
@@ -50,7 +50,7 @@ window.addEventListener("DOMContentLoaded", async function (): Promise<void> {
                     album.appendChild(album_text);
                     album_text.classList.add("Album_Text");
                     album_text.innerText = "An Album";
-    
+
                     const album_peek: HTMLDivElement = document.createElement("div");
                     album.appendChild(album_peek);
                     album_peek.classList.add("Album_Peek");
