@@ -4,7 +4,8 @@
   "description": "A picture viewing app named after my dearly departed cat.",
   "main": "./src/scripts/js/main.js",
   "scripts": {
-    "build": "tsc -b ./src/scripts/ts",
+    "build": "tsc -b ./src/scripts",
+    "rebuild": "tsc -b -f ./src/scripts",
     "start": "npm run build && electron-forge start",
     "package": "npm run build && electron-forge package",
     "make": "npm run build && electron-forge make"
