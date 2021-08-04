@@ -5,7 +5,7 @@ const {
     BrowserWindow,
 } = require("electron");
 
-const Folder_t = require("../../types/scripts/js/folder_t");
+const Folder_t = require("./folder_t.js");
 
 class Window_t {
     folder;
