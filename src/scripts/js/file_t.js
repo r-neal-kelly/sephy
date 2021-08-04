@@ -1,3 +1,5 @@
+"use strict";
+
 const path = require("path");
 
 class File_t {
@@ -6,7 +8,7 @@ class File_t {
     extension;
 
     constructor(file_name, file_path) {
-        this.path = file_path;
+        this.path = path.resolve(file_path).replaceAll("\\", "/");
 
         const path_info = path.parse(this.path);
         this.name = path_info.name;
