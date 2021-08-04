@@ -4,11 +4,9 @@
   "description": "A picture viewing app named after my dearly departed cat.",
   "main": "./src/scripts/js/main.js",
   "scripts": {
-    "build": "tsc -b ./src/scripts",
-    "rebuild": "tsc -b -f ./src/scripts",
-    "start": "npm run build && electron-forge start",
-    "package": "npm run build && electron-forge package",
-    "make": "npm run build && electron-forge make"
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "repository": {
     "type": "git",
@@ -26,9 +24,7 @@
     "@electron-forge/maker-rpm": "^6.0.0-beta.59",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.59",
     "@electron-forge/maker-zip": "^6.0.0-beta.59",
-    "electron": "^13.1.7",
-    "esm": "^3.2.25",
-    "typescript": "^4.3.5"
+    "electron": "^13.1.7"
   },
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0"

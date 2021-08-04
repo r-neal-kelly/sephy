@@ -1,19 +1,17 @@
-import fs from "fs";
+const fs = require("fs");
 
-import {
+const {
     app,
     BrowserWindow,
-} from "electron";
+} = require("electron");
 
-import Folder_t from "../../types/scripts/js/folder_t";
+const Folder_t = require("../../types/scripts/js/folder_t");
 
 class Window_t {
-    folder: string;
-    window: BrowserWindow;
+    folder;
+    window;
 
-    constructor(folder: string) {
-        const self: Window_t = this;
-
+    constructor(folder) {
         this.folder = "./src/windows/" + folder;
 
         this.window = new BrowserWindow({
@@ -29,7 +27,8 @@ class Window_t {
         this.window.loadFile(this.folder + "/index.html");
         this.window.webContents.openDevTools();
 
-        this.window.once("ready-to-show", async function (): Promise<void> {
+        const self = this;
+        this.window.once("ready-to-show", async function () {
             self.window.show();
         });
     }
@@ -47,18 +46,18 @@ class Gallery_t extends Window_t {
     }
 };
 
-app.on("ready", async function (): Promise<void> {
-    let gallery: Gallery_t = new Gallery_t();
+app.on("ready", async function () {
+    let gallery = new Gallery_t();
 
     // windows cannot be created before "ready" event
-    app.on("activate", async function (): Promise<void> {
+    app.on("activate", async function () {
         if (BrowserWindow.getAllWindows().length === 0) {
             gallery = new Gallery_t();
         }
     });
 });
 
-app.on("window-all-closed", async function (): Promise<void> {
+app.on("window-all-closed", async function () {
     if (process.platform !== "darwin") {
         app.quit();
     }

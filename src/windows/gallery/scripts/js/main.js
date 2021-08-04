@@ -1,32 +1,32 @@
-async function get_pics(): Promise<any> {
-    const request: XMLHttpRequest = new XMLHttpRequest();
+async function get_pics() {
+    const request = new XMLHttpRequest();
     request.responseType = "json";
     request.open("GET", "./scripts/json/pics.json");
     request.send();
 
-    return new Promise(async function (resolve, reject): Promise<void> {
-        request.addEventListener("load", async function (): Promise<void> {
+    return new Promise(async function (resolve, reject) {
+        request.addEventListener("load", async function () {
             resolve(request.response);
         });
-        request.addEventListener("abort", async function (): Promise<void> {
+        request.addEventListener("abort", async function () {
             resolve({});
         });
-        request.addEventListener("error", async function (): Promise<void> {
+        request.addEventListener("error", async function () {
             resolve({});
         });
     });
 };
 
-window.addEventListener("DOMContentLoaded", async function (): Promise<void> {
+window.addEventListener("DOMContentLoaded", async function () {
     const pics = await get_pics();
     console.log(pics);
 
-    let viewport_albums: HTMLDivElement;
-    let viewport_picture: HTMLDivElement;
-    let picture: HTMLImageElement;
+    let viewport_albums;
+    let viewport_picture;
+    let picture;
 
     {
-        const title: HTMLTitleElement = document.createElement("title");
+        const title = document.createElement("title");
         document.head.appendChild(title);
         title.innerText = "Sephy";
     }
@@ -37,25 +37,25 @@ window.addEventListener("DOMContentLoaded", async function (): Promise<void> {
             document.body.appendChild(viewport_albums);
             viewport_albums.classList.add("Viewport_Albums");
             for (let idx = 0; idx < 6; idx += 1) {
-                const album: HTMLDivElement = document.createElement("div");
+                const album = document.createElement("div");
                 viewport_albums.appendChild(album);
                 album.classList.add("Album");
-                album.addEventListener("click", async function (): Promise<void> {
+                album.addEventListener("click", async function () {
                     viewport_albums.style["display"] = "none";
                     viewport_picture.style["display"] = "";
                     picture.setAttribute("src", "./pics/sephy.jpg");
                 });
                 {
-                    const album_text: HTMLDivElement = document.createElement("div");
+                    const album_text = document.createElement("div");
                     album.appendChild(album_text);
                     album_text.classList.add("Album_Text");
                     album_text.innerText = "An Album";
 
-                    const album_peek: HTMLDivElement = document.createElement("div");
+                    const album_peek = document.createElement("div");
                     album.appendChild(album_peek);
                     album_peek.classList.add("Album_Peek");
                     {
-                        const album_peek_thumb: HTMLDivElement = document.createElement("div");
+                        const album_peek_thumb = document.createElement("div");
                         album_peek.appendChild(album_peek_thumb);
                         album_peek_thumb.classList.add("Thumb");
                         album_peek_thumb.classList.add("Thumb_Tall");
@@ -74,7 +74,7 @@ window.addEventListener("DOMContentLoaded", async function (): Promise<void> {
                 picture = document.createElement("img");
                 viewport_picture.appendChild(picture);
                 picture.classList.add("Picture");
-                picture.addEventListener("click", async function (): Promise<void> {
+                picture.addEventListener("click", async function () {
                     viewport_albums.style["display"] = "";
                     viewport_picture.style["display"] = "none";
                 });
