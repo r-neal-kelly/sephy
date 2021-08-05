@@ -7,8 +7,8 @@ class File_t {
     name;
     extension;
 
-    constructor(file_name, file_path) {
-        this.path = path.resolve(file_path).replaceAll("\\", "/");
+    constructor(file_path) {
+        this.path = file_path.replaceAll("\\", "/");
 
         const path_info = path.parse(this.path);
         this.name = path_info.name;

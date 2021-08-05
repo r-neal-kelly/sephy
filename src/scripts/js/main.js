@@ -47,12 +47,12 @@ class Gallery_t extends Window_t {
 
         fs.writeFileSync(
             this.folder + "/scripts/json/originals.json",
-            JSON.stringify(new Folder_t("originals", `${this.folder}/pics/originals`), null, null),
+            JSON.stringify(new Folder_t(`${this.folder}/pics/originals`), null, null),
             "utf8"
         );
         fs.writeFileSync(
             this.folder + "/scripts/json/thumbs.json",
-            JSON.stringify(new Folder_t("originals", `${this.folder}/pics/thumbs`), null, null),
+            JSON.stringify(new Folder_t(`${this.folder}/pics/thumbs`), null, null),
             "utf8"
         );
     }
