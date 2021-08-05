@@ -3,8 +3,8 @@
 let originals_folder;
 let thumbs_folder;
 
-let viewport_thumbs;
-let viewport_picture;
+let thumbs_viewport;
+let picture_viewport;
 
 let picture;
 
@@ -65,33 +65,33 @@ async function create_root_folder() {
 async function create_viewports() {
     document.body.classList.add("Viewport");
 
-    viewport_thumbs = document.createElement("div");
-    document.body.appendChild(viewport_thumbs);
-    viewport_thumbs.classList.add("Viewport_Thumbs");
-    viewport_thumbs.style["display"] = "";
+    thumbs_viewport = document.createElement("div");
+    document.body.appendChild(thumbs_viewport);
+    thumbs_viewport.classList.add("Viewport_Thumbs");
+    thumbs_viewport.style["display"] = "";
 
-    viewport_picture = document.createElement("div");
-    document.body.appendChild(viewport_picture);
-    viewport_picture.classList.add("Viewport_Picture");
-    viewport_picture.style["display"] = "none";
+    picture_viewport = document.createElement("div");
+    document.body.appendChild(picture_viewport);
+    picture_viewport.classList.add("Viewport_Picture");
+    picture_viewport.style["display"] = "none";
 
     picture = document.createElement("img");
-    viewport_picture.appendChild(picture);
+    picture_viewport.appendChild(picture);
     picture.classList.add("Picture");
     picture.addEventListener("click", async function () {
-        viewport_thumbs.style["display"] = "";
-        viewport_picture.style["display"] = "none";
+        thumbs_viewport.style["display"] = "";
+        picture_viewport.style["display"] = "none";
     });
 }
 
 async function create_folder(parent_folder) {
-    while (viewport_thumbs.firstChild) {
-        viewport_thumbs.firstChild.remove();
+    while (thumbs_viewport.firstChild) {
+        thumbs_viewport.firstChild.remove();
     }
 
     for (let [idx, child_folder] of parent_folder.folders.entries()) {
         const folder = document.createElement("div");
-        viewport_thumbs.appendChild(folder);
+        thumbs_viewport.appendChild(folder);
         folder.classList.add("Folder");
         folder.addEventListener("click", async function () {
             create_folder(parent_folder.folders[idx]);
@@ -119,12 +119,12 @@ async function create_folder(parent_folder) {
 
     for (let [idx, child_file] of parent_folder.files.entries()) {
         const file = document.createElement("div");
-        viewport_thumbs.appendChild(file);
+        thumbs_viewport.appendChild(file);
         file.classList.add("File");
         file.style["background-image"] = `url("${parent_folder.thumbs.files[idx].path}")`;
         file.addEventListener("click", async function () {
-            viewport_thumbs.style["display"] = "none";
-            viewport_picture.style["display"] = "";
+            thumbs_viewport.style["display"] = "none";
+            picture_viewport.style["display"] = "";
             picture.setAttribute("src", child_file.path);
         });
 

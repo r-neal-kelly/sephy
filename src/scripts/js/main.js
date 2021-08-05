@@ -19,6 +19,7 @@ class Window_t {
         this.window = new BrowserWindow({
             center: true,
             show: false,
+            fullscreen: true,
 
             webPreferences: {
                 contextIsolation: true,
@@ -43,7 +44,7 @@ class Gallery_t extends Window_t {
         if (!fs.existsSync(this.folder + "/scripts/json")) {
             fs.mkdirSync(this.folder + "/scripts/json", { recursive: true });
         }
-        
+
         fs.writeFileSync(
             this.folder + "/scripts/json/originals.json",
             JSON.stringify(new Folder_t("originals", `${this.folder}/pics/originals`), null, null),
