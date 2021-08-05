@@ -40,11 +40,20 @@ class Gallery_t extends Window_t {
     constructor() {
         super("gallery");
 
-        const pics = new Folder_t("pics", this.folder + "/" + "pics");
         if (!fs.existsSync(this.folder + "/scripts/json")) {
             fs.mkdirSync(this.folder + "/scripts/json", { recursive: true });
         }
-        fs.writeFileSync(this.folder + "/scripts/json/pics.json", JSON.stringify(pics, null, null), "utf8");
+        
+        fs.writeFileSync(
+            this.folder + "/scripts/json/originals.json",
+            JSON.stringify(new Folder_t("originals", `${this.folder}/pics/originals`), null, null),
+            "utf8"
+        );
+        fs.writeFileSync(
+            this.folder + "/scripts/json/thumbs.json",
+            JSON.stringify(new Folder_t("originals", `${this.folder}/pics/thumbs`), null, null),
+            "utf8"
+        );
     }
 };
 

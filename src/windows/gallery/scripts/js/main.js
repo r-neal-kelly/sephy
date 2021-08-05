@@ -8,7 +8,7 @@ let picture;
 async function create_root_folder() {
     const request = new XMLHttpRequest();
     request.responseType = "json";
-    request.open("GET", "./scripts/json/pics.json");
+    request.open("GET", "./scripts/json/thumbs.json");
     request.send();
 
     async function ready_child_folders(parent_folder) {
