@@ -37,6 +37,28 @@ async function is_image_tall(image_path) {
     return !is_image_wide(image_path);
 }
 
+async function view_next_picture(parent_folder) {
+    if (picture_viewport.style["display"] !== "none") {
+        if (current_file_index < current_folder.files.length - 1) {
+            current_file_index += 1;
+        } else {
+            current_file_index = 0;
+        }
+        picture.setAttribute("src", current_folder.files[current_file_index].path);
+    }
+}
+
+async function view_previous_picture(parent_folder) {
+    if (picture_viewport.style["display"] !== "none") {
+        if (current_file_index > 0) {
+            current_file_index -= 1;
+        } else {
+            current_file_index = current_folder.files.length - 1;
+        }
+        picture.setAttribute("src", current_folder.files[current_file_index].path);
+    }
+}
+
 async function create_root_folder() {
     const originals_request = new XMLHttpRequest();
     originals_request.responseType = "json";
@@ -83,7 +105,7 @@ async function create_root_folder() {
         for (let [idx, child_folder] of parent_folder.folders.entries()) {
             child_folder["."] = child_folder;
             child_folder[".."] = parent_folder;
-            ready_child_folders(child_folder, parent_thumbs_folder.folders[idx]);
+            await ready_child_folders(child_folder, parent_thumbs_folder.folders[idx]);
         }
     }
     originals_folder["."] = originals_folder;
@@ -124,8 +146,8 @@ async function create_folder(parent_folder) {
         const back_folder = document.createElement("div");
         thumbs_viewport.appendChild(back_folder);
         back_folder.classList.add("Back_Folder");
-        back_folder.addEventListener("click", async function() {
-            create_folder(parent_folder[".."]);
+        back_folder.addEventListener("click", async function () {
+            await create_folder(parent_folder[".."]);
         });
 
         const back_folder_name = document.createElement("div");
@@ -214,31 +236,25 @@ window.addEventListener("DOMContentLoaded", async function () {
     }, 2000);
 
     window.addEventListener("keydown", async function (event) {
-        if (event.key === "ArrowUp") {
+        if (event.key === "ArrowUp" || event.key === "Escape") {
             if (picture_viewport.style["display"] !== "none") {
                 thumbs_viewport.style["display"] = "";
                 picture_viewport.style["display"] = "none";
             } else {
-                create_folder(current_folder[".."]);
+                await create_folder(current_folder[".."]);
             }
         } else if (event.key === "ArrowRight") {
-            if (picture_viewport.style["display"] !== "none") {
-                if (current_file_index < current_folder.files.length - 1) {
-                    current_file_index += 1;
-                } else {
-                    current_file_index = 0;
-                }
-                picture.setAttribute("src", current_folder.files[current_file_index].path);
-            }
+            await view_next_picture(current_folder);
         } else if (event.key === "ArrowLeft") {
-            if (picture_viewport.style["display"] !== "none") {
-                if (current_file_index > 0) {
-                    current_file_index -= 1;
-                } else {
-                    current_file_index = current_folder.files.length - 1;
-                }
-                picture.setAttribute("src", current_folder.files[current_file_index].path);
-            }
+            await view_previous_picture(current_folder);
+        }
+    });
+
+    window.addEventListener("wheel", async function (event) {
+        if (event.wheelDelta < 0) {
+            await view_next_picture(current_folder);
+        } else {
+            await view_previous_picture(current_folder);
         }
     });
 });
