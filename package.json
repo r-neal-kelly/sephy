@@ -32,7 +32,7 @@
   "config": {
     "forge": {
       "packagerConfig": {
-        "icon": "./pics/icon"
+        "icon": "./pics/icon.png"
       },
       "makers": [
         {
