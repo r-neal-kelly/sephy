@@ -1,6 +1,7 @@
 "use strict";
 
 const fs = require("fs");
+const path = require("path");
 
 const {
     app,
@@ -14,7 +15,7 @@ class Window_t {
     window;
 
     constructor(folder) {
-        this.folder = "./src/windows/" + folder;
+        this.folder = path.join(__dirname, "../../windows/" + folder);
 
         this.window = new BrowserWindow({
             center: true,
@@ -28,7 +29,6 @@ class Window_t {
         });
 
         this.window.loadFile(this.folder + "/index.html");
-        this.window.webContents.openDevTools();
 
         const self = this;
         this.window.once("ready-to-show", async function () {
