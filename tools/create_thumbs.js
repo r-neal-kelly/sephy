@@ -72,12 +72,6 @@ async function create_thumbs(in_folder, out_folder, pixels) {
             await create_thumbs(`${in_folder}/${in_entry.name}`, `${out_folder}/${in_entry.name}`, pixels);
         } else if (in_entry.isFile()) {
             await create_thumb(`${in_folder}/${in_entry.name}`, `${out_folder}/${in_entry.name}`, pixels);
-            /*
-            const file_path = `${in_folder}/${in_entry.name}`;
-            if (/\.jpg$/.test(file_path)) {
-                await create_thumb(file_path, `${out_folder}/${in_entry.name}`, pixels);
-            }
-            */
         }
     }
 }

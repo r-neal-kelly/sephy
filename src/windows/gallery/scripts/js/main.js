@@ -1,41 +1,65 @@
 "use strict";
 
-let root_folder;
+let originals_folder;
+let thumbs_folder;
+
 let viewport_thumbs;
 let viewport_picture;
+
 let picture;
 
 async function create_root_folder() {
-    const request = new XMLHttpRequest();
-    request.responseType = "json";
-    request.open("GET", "./scripts/json/thumbs.json");
-    request.send();
+    const originals_request = new XMLHttpRequest();
+    originals_request.responseType = "json";
+    originals_request.open("GET", "./scripts/json/originals.json");
+    originals_request.send();
 
-    async function ready_child_folders(parent_folder) {
-        for (let child_folder of parent_folder.folders) {
-            child_folder["."] = child_folder;
-            child_folder[".."] = parent_folder;
-            ready_child_folders(child_folder);
-        }
-    }
+    const thumbs_request = new XMLHttpRequest();
+    thumbs_request.responseType = "json";
+    thumbs_request.open("GET", "./scripts/json/thumbs.json");
+    thumbs_request.send();
 
-    return new Promise(async function (resolve, reject) {
-        request.addEventListener("load", async function () {
-            root_folder = request.response;
-            root_folder["."] = root_folder;
-            root_folder[".."] = root_folder;
-            await ready_child_folders(root_folder);
+    const originals_promise = new Promise(async function (resolve, reject) {
+        originals_request.addEventListener("load", async function () {
+            originals_folder = originals_request.response;
             resolve();
         });
-        request.addEventListener("abort", async function () {
-            root_folder = {};
+        originals_request.addEventListener("abort", async function () {
+            originals_folder = {};
             resolve();
         });
-        request.addEventListener("error", async function () {
-            root_folder = {};
+        originals_request.addEventListener("error", async function () {
+            originals_folder = {};
             resolve();
         });
     });
+    const thumbs_promise = new Promise(async function (resolve, reject) {
+        thumbs_request.addEventListener("load", async function () {
+            thumbs_folder = thumbs_request.response;
+            resolve();
+        });
+        thumbs_request.addEventListener("abort", async function () {
+            thumbs_folder = {};
+            resolve();
+        });
+        thumbs_request.addEventListener("error", async function () {
+            thumbs_folder = {};
+            resolve();
+        });
+    });
+    await Promise.all([originals_promise, thumbs_promise]);
+
+    async function ready_child_folders(parent_folder, parent_thumbs_folder) {
+        parent_folder.thumbs = parent_thumbs_folder;
+        for (let [idx, child_folder] of parent_folder.folders.entries()) {
+            child_folder["."] = child_folder;
+            child_folder[".."] = parent_folder;
+            ready_child_folders(child_folder, parent_thumbs_folder.folders[idx]);
+        }
+    }
+    originals_folder["."] = originals_folder;
+    originals_folder[".."] = originals_folder;
+    await ready_child_folders(originals_folder, thumbs_folder);
 }
 
 async function create_viewports() {
@@ -93,11 +117,11 @@ async function create_folder(parent_folder) {
         }*/
     }
 
-    for (let child_file of parent_folder.files) {
+    for (let [idx, child_file] of parent_folder.files.entries()) {
         const file = document.createElement("div");
         viewport_thumbs.appendChild(file);
         file.classList.add("File");
-        file.style["background-image"] = `url("${child_file.path}")`;
+        file.style["background-image"] = `url("${parent_folder.thumbs.files[idx].path}")`;
         file.addEventListener("click", async function () {
             viewport_thumbs.style["display"] = "none";
             viewport_picture.style["display"] = "";
@@ -126,5 +150,5 @@ window.addEventListener("DOMContentLoaded", async function () {
 
     await create_root_folder();
     await create_viewports();
-    await create_folder(root_folder);
+    await create_folder(originals_folder);
 });
