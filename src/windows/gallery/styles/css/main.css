@@ -34,14 +34,13 @@ body {
 .Viewport_Thumbs {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
     align-content: flex-start;
     align-items: flex-start;
     position: relative;
     width: 100%;
     height: 100%;
     overflow: auto;
-    -webkit-overflow-scrolling: touch;
 }
 
 .Viewport_Picture {
@@ -51,7 +50,6 @@ body {
     width: 100%;
     height: 100%;
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
 }
 
 .Folder {
@@ -61,7 +59,7 @@ body {
     align-items: center;
     align-content: space-around;
     width: 100%;
-    min-height: 100px;
+    min-height: 162px; /* .File height + margin on top and bottom */
     text-align: center;
     margin-bottom: 7px;
     cursor: pointer;
@@ -75,11 +73,6 @@ body {
     margin-left: 12px;
     margin-right: 12px;
     font-size: 1.5em;
-}
-
-.Folder_Peek {
-    width: 120px;
-    height: 120px;
 }
 
 .File {

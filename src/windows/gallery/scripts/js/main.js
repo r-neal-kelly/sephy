@@ -2,6 +2,7 @@
 
 let originals_folder;
 let thumbs_folder;
+let current_folder;
 
 let thumbs_viewport;
 let picture_viewport;
@@ -85,6 +86,8 @@ async function create_viewports() {
 }
 
 async function create_folder(parent_folder) {
+    current_folder = parent_folder;
+
     while (thumbs_viewport.firstChild) {
         thumbs_viewport.firstChild.remove();
     }
@@ -102,19 +105,12 @@ async function create_folder(parent_folder) {
         folder_name.classList.add("Folder_Name");
         folder_name.innerText = child_folder.name;
 
-        /*{
-            const album_peek = document.createElement("div");
-            album.appendChild(album_peek);
-            album_peek.classList.add("Album_Peek");
-            {
-                const album_peek_thumb = document.createElement("div");
-                album_peek.appendChild(album_peek_thumb);
-                album_peek_thumb.classList.add("Thumb");
-                album_peek_thumb.classList.add("Thumb_Tall");
-                album_peek_thumb.style["border"] = "0";
-                album_peek_thumb.style["background-image"] = "url('./pics/sephy.jpg')";
-            }
-        }*/
+        const folder_thumb = document.createElement("div");
+        folder.appendChild(folder_thumb);
+        folder_thumb.classList.add("File");
+        folder_thumb.classList.add("File_Tall");
+        folder_thumb.style["border"] = "0";
+        folder_thumb.style["background-image"] = "url('./pics/sephy.jpg')";
     }
 
     for (let [idx, child_file] of parent_folder.files.entries()) {
