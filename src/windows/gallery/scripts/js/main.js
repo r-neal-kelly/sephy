@@ -3,6 +3,7 @@
 let originals_folder;
 let thumbs_folder;
 let current_folder;
+let current_file_index;
 
 let thumbs_viewport;
 let picture_viewport;
@@ -162,6 +163,7 @@ async function create_folder(parent_folder) {
         file.classList.add("File");
         file.style["background-image"] = `url("${thumb_path}")`;
         file.addEventListener("click", async function () {
+            current_file_index = idx;
             thumbs_viewport.style["display"] = "none";
             picture_viewport.style["display"] = "";
             picture.setAttribute("src", original_path);
@@ -209,5 +211,34 @@ window.addEventListener("DOMContentLoaded", async function () {
         if (document.visibilityState === "visible") {
             await update_child_folder_thumbs(current_folder);
         }
-    }, 3000);
+    }, 2000);
+
+    window.addEventListener("keydown", async function (event) {
+        if (event.key === "ArrowUp") {
+            if (picture_viewport.style["display"] !== "none") {
+                thumbs_viewport.style["display"] = "";
+                picture_viewport.style["display"] = "none";
+            } else {
+                create_folder(current_folder[".."]);
+            }
+        } else if (event.key === "ArrowRight") {
+            if (picture_viewport.style["display"] !== "none") {
+                if (current_file_index < current_folder.files.length - 1) {
+                    current_file_index += 1;
+                } else {
+                    current_file_index = 0;
+                }
+                picture.setAttribute("src", current_folder.files[current_file_index].path);
+            }
+        } else if (event.key === "ArrowLeft") {
+            if (picture_viewport.style["display"] !== "none") {
+                if (current_file_index > 0) {
+                    current_file_index -= 1;
+                } else {
+                    current_file_index = current_folder.files.length - 1;
+                }
+                picture.setAttribute("src", current_folder.files[current_file_index].path);
+            }
+        }
+    });
 });

@@ -21,6 +21,7 @@ class Window_t {
             center: true,
             show: false,
             fullscreen: true,
+            icon: `${this.folder}/pics/icon.png`,
 
             webPreferences: {
                 contextIsolation: true,
