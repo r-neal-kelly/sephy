@@ -52,14 +52,13 @@ body {
     overflow-x: auto;
 }
 
-.Folder {
+.Folder, .Back_Folder {
     position: relative;
     display: flex;
     justify-content: space-around;
     align-items: center;
     align-content: space-around;
     width: 100%;
-    min-height: 162px; /* .File height + margin on top and bottom */
     text-align: center;
     margin-bottom: 7px;
     cursor: pointer;
@@ -68,14 +67,14 @@ body {
     border: 3px solid rgba(192, 192, 192, 0.3);
 }
 
-.Folder_Name {
+.Folder_Name, .Back_Folder_Name {
     width: 67%;
     margin-left: 12px;
     margin-right: 12px;
     font-size: 1.5em;
 }
 
-.File {
+.File, .Folder_Thumb {
     display: inline-block;
     border: 1px solid rgba(192, 192, 192, 0.3);
     cursor: pointer;
@@ -86,11 +85,11 @@ body {
     background-repeat: no-repeat;
 }
 
-.File_Wide {
+.File_Wide, .Folder_Thumb_Wide {
     background-size: auto 100%;
 }
 
-.File_Tall {
+.File_Tall, .Folder_Thumb_Tall {
     background-size: 100% auto;
 }
 
