@@ -1,6 +1,6 @@
 {
   "name": "sephy",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A picture viewing app named after my dearly departed cat.",
   "main": "./src/scripts/js/main.js",
   "scripts": {

@@ -59,7 +59,7 @@ async function view_previous_picture(parent_folder) {
     }
 }
 
-async function create_root_folder() {
+async function create_root_folders() {
     const originals_request = new XMLHttpRequest();
     originals_request.responseType = "json";
     originals_request.open("GET", "./scripts/json/originals.json");
@@ -225,7 +225,7 @@ window.addEventListener("DOMContentLoaded", async function () {
     document.head.appendChild(title);
     title.innerText = "Sephy";
 
-    await create_root_folder();
+    await create_root_folders();
     await create_viewports();
     await create_folder(originals_folder);
 
